@@ -48,6 +48,9 @@ class Thumbsnag
         $openGraph = new OpenGraph($this->document);
         $this->images = $openGraph->images();
 
+        $bodyImages = new BodyImages($this->document);
+        $this->images = array_merge($this->images, $bodyImages->images());
+
         return $this->images;
     }
 }

@@ -25,6 +25,6 @@ class ThumbsnagSpec extends ObjectBehavior
     public function it_returns_an_array_of_representative_images()
     {
         $this->process()->shouldBeArray();
-        $this->process()->shouldHaveCount(2);
+        $this->process()->shouldHaveCount(5);
     }
 }

@@ -27,6 +27,8 @@ array(2) {
 
 ### Credits
 
++ [How to Find the Image That Best Represents a Web Page](https://tech.shareaholic.com/2012/11/02/how-to-find-the-image-that-best-respresents-a-web-page/)
+
 ### License
 
 Thumbsnag is open-sourced software licensed under the [MIT license](https://raw.githubusercontent.com/gstjohn/Thumbsnag/master/LICENSE)

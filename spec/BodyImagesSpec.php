@@ -6,7 +6,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Thumbsnag\Stub\DOMDocumentStub;
 
-class OpenGraphSpec extends ObjectBehavior
+class BodyImagesSpec extends ObjectBehavior
 {
 
     public function let()
@@ -18,13 +18,13 @@ class OpenGraphSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Thumbsnag\OpenGraph');
+        $this->shouldHaveType('Thumbsnag\BodyImages');
     }
 
-    public function it_provides_open_graph_meta_tag_images()
+    public function it_provides_body_images()
     {
         $this->images()->shouldBeArray();
-        $this->images()->shouldHaveCount(2);
+        $this->images()->shouldHaveCount(3);
     }
 
     public function it_provides_an_empty_array_if_no_images_are_found()
@@ -37,4 +37,3 @@ class OpenGraphSpec extends ObjectBehavior
         $this->images()->shouldReturn([]);
     }
 }
-
