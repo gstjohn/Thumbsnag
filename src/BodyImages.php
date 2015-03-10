@@ -35,7 +35,16 @@ class BodyImages
                 continue;
             }
 
-            $images[] = Image::fromUrl($tag->getAttribute('src'));
+            $image = Image::fromUrl($tag->getAttribute('src'));
+
+            $width = $tag->hasAttribute('width') ? (int)$tag->getAttribute('width') : null;
+            $height = $tag->hasAttribute('height') ? (int)$tag->getAttribute('height') : null;
+
+            if (!is_null($width) && !is_null($height)) {
+                $image->setDimensions($width, $height);
+            }
+
+            $images[] = $image;
         }
 
         return $images;

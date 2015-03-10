@@ -50,7 +50,7 @@ class Thumbsnag
 
         $bodyImages = new BodyImages($this->document);
         $this->images = array_merge($this->images, $bodyImages->images());
-
+        
         return $this->images;
     }
 }
