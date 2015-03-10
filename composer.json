@@ -1,0 +1,15 @@
+{
+    "name": "gstjohn/thumbsnag",
+    "description": "A tool for crawling web pages for representative imagery.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Garrett St. John",
+            "email": "gstjohn@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpspec/phpspec": "~2.1"
+    }
+}
