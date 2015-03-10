@@ -1,6 +1,7 @@
 {
     "name": "gstjohn/thumbsnag",
     "description": "A tool for crawling web pages for representative imagery.",
+    "keywords": ["image", "crawler", "thumbnails"],
     "license": "MIT",
     "authors": [
         {
@@ -8,8 +9,12 @@
             "email": "gstjohn@gmail.com"
         }
     ],
-    "require": {},
     "require-dev": {
         "phpspec/phpspec": "~2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Thumbsnag\\": "src/"
+        }
     }
 }
