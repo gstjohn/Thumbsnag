@@ -1,0 +1,7 @@
+---
+suites:
+  snag_suite:
+    namespace: Thumbsnag
+    psr4_prefix: Thumbsnag
+
+formatter.name: pretty

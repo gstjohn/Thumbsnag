@@ -6,17 +6,23 @@ Thumbsnag crawls a webpage and makes a best effort at finding imagery that repre
 
 ```php
 use Thumbsnag\Thumbsnag;
+use DOMDocument;
 
-$images = Thumbsnag::inspect('http://simplegifts.co');
+$html = file_get_contents('http://simplegifts.co');
+$document = DOMDocument::loadHTML($html);
+$thumbsnag = Thumbsnag::load($document);
+$images = $thumbsnag->process();
 ```
 
 After inspection, `$images` might return:
 
 ```bash
-  array(4) {
-    [0]=>
-    string(21) "http://simplegifts.co/"
-  }
+array(2) {
+  [0]=>
+  string(31) "http://simplegifts./image1.jpg"
+  [1]=>
+  string(31) "http://simplegifts./image1.jpg"
+}
 ```
 
 ### Credits
