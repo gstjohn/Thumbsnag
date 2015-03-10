@@ -35,7 +35,7 @@ class BodyImages
                 continue;
             }
 
-            $images[] = $tag->getAttribute('src');
+            $images[] = Image::fromUrl($tag->getAttribute('src'));
         }
 
         return $images;

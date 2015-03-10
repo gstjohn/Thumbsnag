@@ -42,7 +42,7 @@ class OpenGraph
             $property = $tag->getAttribute('property');
 
             if ($this->isOpenGraphImageTag($property)) {
-                $images[] = $tag->getAttribute('content');
+                $images[] = Image::fromUrl($tag->getAttribute('content'));
             }
         }
 
