@@ -1,6 +1,6 @@
 {
     "name": "gstjohn/thumbsnag",
-    "description": "A tool for crawling web pages for representative imagery.",
+    "description": "Thumbsnag crawls an HTML document and finds imagery that best represents the given page.",
     "keywords": ["image", "crawler", "thumbnail", "opengraph"],
     "license": "MIT",
     "authors": [
