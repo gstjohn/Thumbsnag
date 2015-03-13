@@ -24,7 +24,7 @@ class BodyImagesSpec extends ObjectBehavior
     public function it_provides_body_images()
     {
         $this->images()->shouldBeArray();
-        $this->images()->shouldHaveCount(4);
+        $this->images()->shouldHaveCount(5);
     }
 
     public function it_provides_an_empty_array_if_no_images_are_found()

@@ -47,7 +47,8 @@ class Thumbsnag
 
         $defaultConfig = [
             'min_area' => 5000,
-            'ratio_threshold' => 3.0
+            'ratio_threshold' => 3.0,
+            'filename_filters' => ['sprite', 'blank', 'spacer']
         ];
 
         $this->config = array_merge($defaultConfig, $config);
@@ -155,7 +156,14 @@ class Thumbsnag
                 return false;
             }
 
-            // TODO: file name filter ("sprite")
+            // file name filter
+            $fileNameFilters = $this->config['filename_filters'];
+            $filename = basename($image->getUrl());
+            foreach ($fileNameFilters as $filter) {
+                if (strpos($filename, $filter) !== false) {
+                    return false;
+                }
+            }
 
             return true;
         });

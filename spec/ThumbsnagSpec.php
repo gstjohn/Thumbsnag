@@ -41,6 +41,20 @@ class ThumbsnagSpec extends ObjectBehavior
         $this->process()->shouldHaveCount(1);
     }
 
+    public function it_should_remove_filtered_file_names()
+    {
+        $domDoc = new \DOMDocument();
+        $domDoc->loadHtml('<html><body><img src="img/spacer.gif" /><img src="img/sprite.png" /><img src="img/cat.jpg" /></body></html>');
+
+        $document = UrlDocument::build($domDoc, 'http://simplegifts.co');
+
+        $analyzer = new StubFileSizeAnalyzer();
+
+        $this->beConstructedThrough('load', [$document, $analyzer]);
+
+        $this->process()->shouldHaveCount(1);
+    }
+
     public function it_returns_an_array_of_representative_images()
     {
         $this->process()->shouldBeArray();
