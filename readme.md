@@ -1,4 +1,4 @@
-# Thumbsnag
+# Thumbsnag [![Build Status](https://travis-ci.org/gstjohn/Thumbsnag.svg?branch=master)](https://travis-ci.org/gstjohn/Thumbsnag)
 
 Thumbsnag crawls a webpage and makes a best effort at finding imagery that represents the given page.
 
@@ -12,7 +12,7 @@ use Thumbsnag\UrlDocument;
 $url = 'http://simplegifts.co';
 $html = file_get_contents($url);
 
-$document = new DOMDocument()
+$document = new DOMDocument();
 $document->loadHTML($html);
 
 $analyzer = new FastImageAnalyzer(new FastImage());
