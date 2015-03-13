@@ -60,15 +60,15 @@ Thumbsnag::load() takes an array as its third parameter which overrides the defa
 
 + **min_area (default: 5000)**
 
-  This option represents the minimum pixel area (width x height) of the images that is required in order to be included in the result set.
+  This option represents the minimum pixel area (width x height) required in order to be included in the result set.
   
 + **ratio_threshold (default: 3.0)**
   
-  This option represent the maximum ratio of width-to-height allowed in order to be included in the result set.
+  This option represents the maximum ratio of width-to-height allowed in order to be included in the result set.
   
 + **filename_filters (default: "sprite", "blank", and "spacer")**
 
-  This option represent an array of words that must not be in the image file name in order to be included in the result set.
+  This option represents an array of words that must not be in the image file name in order to be included in the result set.
 
 ## Credits
 
