@@ -48,7 +48,7 @@ class Thumbsnag
         $this->documentUrl = $documentUrl;
 
         $defaultConfig = [
-            'min_area' => 5000, // TODO: Figure out ideal area for design
+            'min_area' => 5000,
             'ratio_threshold' => 3.0
         ];
 
@@ -86,7 +86,6 @@ class Thumbsnag
         $this->removeDuplicates();
         $this->completeImages();
         $this->filterImages();
-        $this->prioritizeImages();
 
         return $this->images;
     }
@@ -144,22 +143,22 @@ class Thumbsnag
      */
     private function filterImages()
     {
-        //$this->images = array_filter($this->images, function ($image) {
-        // TODO: check minimum width
+        $this->images = array_filter($this->images, function ($image) {
+            list($width, $height) = $image->getDimensions();
 
-        // TODO: check ratio < threshold
+            // check minimum size
+            if ($width * $height < $this->config['min_area']) {
+                return false;
+            }
 
-        // TODO: file name filter ("sprite")
-        //});
-    }
+            // check ratio < threshold
+            if ($image->getRatio() > $this->config['ratio_threshold']) {
+                return false;
+            }
 
-    /**
-     * Order images based on best match
-     */
-    private function prioritizeImages()
-    {
-//        $this->images = array_filter($this->images, function ($image) {
-//          // TODO: figure out best priority order of images
-//        });
+            // TODO: file name filter ("sprite")
+
+            return true;
+        });
     }
 }
