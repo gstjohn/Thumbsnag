@@ -1,6 +1,6 @@
 # Thumbsnag [![Build Status](https://travis-ci.org/gstjohn/Thumbsnag.svg?branch=master)](https://travis-ci.org/gstjohn/Thumbsnag)
 
-Thumbsnag crawls a webpage and makes a best effort at finding imagery that represents the given page.
+Thumbsnag crawls an HTML document and finds imagery that best represents the given page.
 
 ## Example
 
@@ -34,8 +34,6 @@ array(2) {
 
 ## Configuration
 
-## Usage
-
 ### Step 1: Install
 
 Pull the package in through Composer.
@@ -50,14 +48,16 @@ Pull the package in through Composer.
 
 Thumbsnag::load() takes an array as its third parameter which overrides the default config. Available configuration options are:
 
-+ #####min_area (default: 5000)#####
++ **min_area (default: 5000)**
 
   This option represents the minimum pixel area (width x height) of the images that is required in order to be included in the result set.
   
-+ #####ratio_threshold (default: 3.0)#####
++ **ratio_threshold (default: 3.0)**
+  
   This option represent the maximum ratio of width-to-height allowed in order to be included in the result set.
   
-+ #####filename_filters (default: "sprite", "blank", and "spacer")#####
++ **filename_filters (default: "sprite", "blank", and "spacer")**
+
   This option represent an array of words that must not be in the image file name in order to be included in the result set.
 
 ## Credits
