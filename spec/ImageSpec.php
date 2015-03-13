@@ -23,6 +23,11 @@ class ImageSpec extends ObjectBehavior
         $this->getDimensions()->shouldEqual([100, 200]);
     }
 
+    public function it_should_throw_an_exception_if_trying_to_set_invalid_dimensions()
+    {
+        $this->shouldThrow('\InvalidArgumentException')->during('setDimensions', [null, 125]);
+    }
+
     public function it_should_provide_its_width_to_height_ratio()
     {
         $this->setDimensions(100, 200);

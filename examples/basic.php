@@ -1,16 +1,21 @@
 <?php
 
+use Thumbsnag\FastImageAnalyzer;
 use Thumbsnag\Thumbsnag;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 libxml_use_internal_errors(true);
 
-$html = file_get_contents('http://simplegifts.co');
+$url = 'http://creativeclutterblog.com';
+
+$html = file_get_contents($url);
 $doc = new DOMDocument();
 $doc->loadHTML($html);
 
-$thumbsnag = Thumbsnag::load($doc);
+$analyzer = new FastImageAnalyzer(new Fastimage());
+
+$thumbsnag = Thumbsnag::load($doc, $analyzer, $url);
 $images = $thumbsnag->process();
 
 print_r($images);

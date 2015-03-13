@@ -49,8 +49,12 @@ class Image
      */
     public function setDimensions($width, $height)
     {
-        $this->width = is_null($width) ? $this->width : $width;
-        $this->height = is_null($height) ? $this->height : $height;
+        if (!is_numeric($width) || !is_numeric($height)) {
+            throw new \InvalidArgumentException('Values for width and height must be numeric for setDimensions()');
+        }
+
+        $this->width = $width;
+        $this->height = $height;
     }
 
     /**

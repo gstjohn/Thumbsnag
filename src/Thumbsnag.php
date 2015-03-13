@@ -82,6 +82,8 @@ class Thumbsnag
         $bodyImages = new BodyImages($this->document);
         $this->images = array_merge($this->images, $bodyImages->images());
 
+        $this->makeUrlsAbsolute();
+        $this->removeDuplicates();
         $this->completeImages();
         $this->filterImages();
         $this->prioritizeImages();
@@ -90,21 +92,49 @@ class Thumbsnag
     }
 
     /**
-     * Make sure images have absolute URLs and dimensions
+     * Make URLs absolute
      */
-    private function completeImages()
+    public function makeUrlsAbsolute()
     {
         foreach ($this->images as $key => &$image) {
             // Make sure we have an absolute URL
             $absoluteUrl = new AbsoluteUrlDeriver($image->getUrl(), $this->documentUrl);
             $image->setUrl((string)$absoluteUrl->getAbsoluteUrl());
+        }
+    }
 
+    /**
+     * Remove duplicate URLs
+     */
+    public function removeDuplicates()
+    {
+        $images = [];
+
+        foreach ($this->images as $image) {
+            $images[$image->getUrl()] = $image;
+        }
+
+        $this->images = array_values($images);
+    }
+
+    /**
+     * Make sure images have absolute URLs and dimensions
+     */
+    private function completeImages()
+    {
+        foreach ($this->images as $key => &$image) {
             // Get dimensions if we don't have them
             if (!$image->hasDimensions()) {
-                $this->analyzer->load($image->getUrl());
-                list($width, $height) = $this->analyzer->getSize();
+                try {
+                    $this->analyzer->load($image->getUrl());
 
-                $image->setDimensions($width, $height);
+                    list($width, $height) = $this->analyzer->getSize();
+
+                    $image->setDimensions($width, $height);
+                } catch (\Exception $e) {
+                    // Remove image if there was an issue analyzing it
+                    unset($this->images[$key]);
+                }
             }
         }
     }

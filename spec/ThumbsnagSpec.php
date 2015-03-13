@@ -24,6 +24,18 @@ class ThumbsnagSpec extends ObjectBehavior
         $this->shouldHaveType('Thumbsnag\Thumbsnag');
     }
 
+    public function it_should_remove_duplicate_images()
+    {
+        $document = new \DOMDocument();
+        $document->loadHtml('<html><body><img src="img/bird.jpg" /><img src="img/bird.jpg" /></body></html>');
+        $analyzer = new StubFileSizeAnalyzer();
+        $baseUrl = "http://simplegifts.co";
+
+        $this->beConstructedThrough('load', [$document, $analyzer, $baseUrl]);
+
+        $this->process()->shouldHaveCount(1);
+    }
+
     public function it_returns_an_array_of_representative_images()
     {
         $this->process()->shouldBeArray();
