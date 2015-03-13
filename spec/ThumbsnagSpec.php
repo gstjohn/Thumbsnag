@@ -4,7 +4,7 @@ require_once __DIR__ . '/../stub/DOMDocumentStub.php';
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Thumbsnag\Location;
+use Thumbsnag\ImageSizeAnalyzer;
 use Thumbsnag\Stub\DOMDocumentStub;
 
 class ThumbsnagSpec extends ObjectBehavior
@@ -13,8 +13,10 @@ class ThumbsnagSpec extends ObjectBehavior
     public function let()
     {
         $document = DOMDocumentStub::getDocument();
+        $analyzer = new StubFileSizeAnalyzer();
+        $baseUrl = "http://simplegifts.co";
 
-        $this->beConstructedThrough('load', [$document]);
+        $this->beConstructedThrough('load', [$document, $analyzer, $baseUrl]);
     }
 
     public function it_is_initializable()
@@ -26,5 +28,33 @@ class ThumbsnagSpec extends ObjectBehavior
     {
         $this->process()->shouldBeArray();
         $this->process()->shouldHaveCount(5);
+    }
+}
+
+class StubFileSizeAnalyzer implements ImageSizeAnalyzer
+{
+
+    private $filePath;
+
+    /**
+     * Load URL
+     *
+     * @param $url
+     */
+    public function load($url)
+    {
+        $this->filePath = __DIR__ . '/../stub/img/' . basename($url);
+    }
+
+    /**
+     * Get image size
+     *
+     * @return array
+     */
+    public function getSize()
+    {
+        $imageSize = getimagesize($this->filePath);
+
+        return [$imageSize[0], $imageSize[1]];
     }
 }

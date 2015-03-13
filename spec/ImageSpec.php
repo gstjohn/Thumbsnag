@@ -29,4 +29,26 @@ class ImageSpec extends ObjectBehavior
 
         $this->getRatio()->shouldReturn(0.5);
     }
+
+    public function it_should_know_if_it_has_dimensions()
+    {
+        $this->hasDimensions()->shouldReturn(false);
+
+        $this->setDimensions(100, 200);
+        $this->hasDimensions()->shouldReturn(true);
+    }
+
+    public function it_should_return_its_url()
+    {
+        $this->getUrl()
+            ->shouldReturn('http://simplegifts.co/image1.jpg');
+    }
+
+    public function it_should_be_able_to_reset_its_url()
+    {
+        $this->setUrl('http://simplegifts.co/image2.jpg');
+
+        $this->getUrl()
+            ->shouldReturn('http://simplegifts.co/image2.jpg');
+    }
 }

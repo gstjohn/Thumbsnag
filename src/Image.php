@@ -72,4 +72,34 @@ class Image
     {
         return (double)$this->width / $this->height;
     }
+
+    /**
+     * Determine if the images has dimensions set
+     *
+     * @returns bool
+     */
+    public function hasDimensions()
+    {
+        return ($this->width && $this->height);
+    }
+
+    /**
+     * Get image url
+     *
+     * @returns string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set image url
+     *
+     * @param $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
 }

@@ -1,7 +1,7 @@
 {
     "name": "gstjohn/thumbsnag",
     "description": "A tool for crawling web pages for representative imagery.",
-    "keywords": ["image", "crawler", "thumbnails"],
+    "keywords": ["image", "crawler", "thumbnail", "opengraph"],
     "license": "MIT",
     "authors": [
         {
@@ -9,6 +9,10 @@
             "email": "gstjohn@gmail.com"
         }
     ],
+    "require": {
+        "fastimage/fastimage": "dev-master@dev",
+        "webignition/absolute-url-deriver": "~1.5"
+    },
     "require-dev": {
         "phpspec/phpspec": "~2.0@dev"
     },
@@ -16,8 +20,5 @@
         "psr-4": {
             "Thumbsnag\\": "src/"
         }
-    },
-    "require": {
-        "fastimage/fastimage": "dev-master@dev"
     }
 }

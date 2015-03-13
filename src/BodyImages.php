@@ -28,7 +28,7 @@ class BodyImages
     public function images()
     {
         $images = [];
-        $tags = $this->document->getElementsByTagName('img');
+        $tags = $this->document->getElementsByTagName('img'); // TODO: Improve selector to prioritize content areas, not sidebar or footer
 
         foreach ($tags as $tag) {
             if (!$tag->hasAttribute('src')) {
