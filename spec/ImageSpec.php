@@ -56,4 +56,9 @@ class ImageSpec extends ObjectBehavior
         $this->getUrl()
             ->shouldReturn('http://simplegifts.co/image2.jpg');
     }
+
+    public function it_should_cast_to_a_string_containing_url(){
+        $this->__toString()
+            ->shouldReturn('http://simplegifts.co/image1.jpg');
+    }
 }

@@ -7,7 +7,12 @@ class FastImageAnalyzer implements ImageSizeAnalyzer
      */
     private $fastImage;
 
-    public function __construct(\Fastimage $fastimage)
+    /**
+     * @var \FastImage
+     */
+    private $analyzer;
+
+    public function __construct(\FastImage $fastimage)
     {
         $this->fastImage = $fastimage;
     }
@@ -19,7 +24,8 @@ class FastImageAnalyzer implements ImageSizeAnalyzer
      */
     public function load($url)
     {
-        $this->fastImage->load($url);
+        $this->analyzer = new $this->fastImage;
+        $this->analyzer->load($url);
     }
 
     /**
@@ -30,10 +36,13 @@ class FastImageAnalyzer implements ImageSizeAnalyzer
      */
     public function getSize()
     {
-        $result = $this->fastImage->getSize();
+        $result = $this->analyzer->getSize();
 
-        if ($result === false) {
+        if (!is_array($result)) {
+//            die('<pre>'.print_r($this->analyzer, true).'</pre>');
             throw new \Exception('Unable to get image size.');
         }
+
+        return $result;
     }
 }

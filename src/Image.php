@@ -106,4 +106,14 @@ class Image
     {
         $this->url = $url;
     }
+
+    /**
+     * Cast to string
+     *
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->getUrl();
+    }
 }
