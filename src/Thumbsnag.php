@@ -36,16 +36,14 @@ class Thumbsnag
     /**
      * Constructor
      *
-     * @param DOMDocument       $document
+     * @param UrlDocument       $document
      * @param ImageSizeAnalyzer $analyzer
-     * @param                   $documentUrl
      * @param array             $config
      */
-    private function __construct(DOMDocument $document, ImageSizeAnalyzer $analyzer, $documentUrl, array $config)
+    private function __construct(UrlDocument $document, ImageSizeAnalyzer $analyzer, array $config)
     {
         $this->document = $document;
         $this->analyzer = $analyzer;
-        $this->documentUrl = $documentUrl;
 
         $defaultConfig = [
             'min_area' => 5000,
@@ -58,15 +56,14 @@ class Thumbsnag
     /**
      * Inspect a URL for representative images
      *
-     * @param DOMDocument       $document
+     * @param UrlDocument       $document
      * @param ImageSizeAnalyzer $analyzer
-     * @param null              $baseUrl
      * @param array             $config
      * @return Thumbsnag
      */
-    public static function load(DOMDocument $document, ImageSizeAnalyzer $analyzer, $baseUrl = null, array $config = [])
+    public static function load(UrlDocument $document, ImageSizeAnalyzer $analyzer, array $config = [])
     {
-        return new Thumbsnag($document, $analyzer, $baseUrl, $config);
+        return new Thumbsnag($document, $analyzer, $config);
     }
 
     /**
@@ -76,10 +73,12 @@ class Thumbsnag
      */
     public function process()
     {
-        $openGraph = new OpenGraph($this->document);
+        $document = $this->document->getDocument();
+
+        $openGraph = new OpenGraph($document);
         $this->images = $openGraph->images();
 
-        $bodyImages = new BodyImages($this->document);
+        $bodyImages = new BodyImages($document);
         $this->images = array_merge($this->images, $bodyImages->images());
 
         $this->makeUrlsAbsolute();
@@ -97,7 +96,7 @@ class Thumbsnag
     {
         foreach ($this->images as $key => &$image) {
             // Make sure we have an absolute URL
-            $absoluteUrl = new AbsoluteUrlDeriver($image->getUrl(), $this->documentUrl);
+            $absoluteUrl = new AbsoluteUrlDeriver($image->getUrl(), $this->document->getUrl());
             $image->setUrl((string)$absoluteUrl->getAbsoluteUrl());
         }
     }

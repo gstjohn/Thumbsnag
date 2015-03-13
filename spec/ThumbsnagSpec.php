@@ -6,17 +6,20 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Thumbsnag\ImageSizeAnalyzer;
 use Thumbsnag\Stub\DOMDocumentStub;
+use Thumbsnag\UrlDocument;
 
 class ThumbsnagSpec extends ObjectBehavior
 {
 
     public function let()
     {
-        $document = DOMDocumentStub::getDocument();
+        $document = UrlDocument::build(
+            DOMDocumentStub::getDocument(),
+            'http://simplegifts.co'
+        );
         $analyzer = new StubFileSizeAnalyzer();
-        $baseUrl = "http://simplegifts.co";
 
-        $this->beConstructedThrough('load', [$document, $analyzer, $baseUrl]);
+        $this->beConstructedThrough('load', [$document, $analyzer]);
     }
 
     public function it_is_initializable()
@@ -26,12 +29,14 @@ class ThumbsnagSpec extends ObjectBehavior
 
     public function it_should_remove_duplicate_images()
     {
-        $document = new \DOMDocument();
-        $document->loadHtml('<html><body><img src="img/bird.jpg" /><img src="img/bird.jpg" /></body></html>');
-        $analyzer = new StubFileSizeAnalyzer();
-        $baseUrl = "http://simplegifts.co";
+        $domDoc = new \DOMDocument();
+        $domDoc->loadHtml('<html><body><img src="img/bird.jpg" /><img src="img/bird.jpg" /></body></html>');
 
-        $this->beConstructedThrough('load', [$document, $analyzer, $baseUrl]);
+        $document = UrlDocument::build($domDoc, 'http://simplegifts.co');
+
+        $analyzer = new StubFileSizeAnalyzer();
+
+        $this->beConstructedThrough('load', [$document, $analyzer]);
 
         $this->process()->shouldHaveCount(1);
     }
