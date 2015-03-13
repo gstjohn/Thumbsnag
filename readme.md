@@ -24,12 +24,22 @@ $images = $thumbsnag->process();
 After inspection, `$images` will return something like:
 
 ```bash
-array(2) {
-  [0]=>
-  string(31) "http://simplegifts.co/image1.jpg"
-  [1]=>
-  string(31) "http://simplegifts.co/image2.png"
-}
+Array
+(
+  [1] => Thumbsnag\Image Object
+  (
+    [url:Thumbsnag\Image:private] => http://simplegifts.co/image1.jpg
+    [height:Thumbsnag\Image:private] => 565
+    [width:Thumbsnag\Image:private] => 849
+  )
+
+  [2] => Thumbsnag\Image Object
+  (
+    [url:Thumbsnag\Image:private] => http://simplegifts.co/image2.png
+    [height:Thumbsnag\Image:private] => 450
+    [width:Thumbsnag\Image:private] => 1162
+  )
+)
 ```
 
 ## Configuration
