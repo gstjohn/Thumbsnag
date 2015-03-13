@@ -5,23 +5,30 @@ Thumbsnag crawls a webpage and makes a best effort at finding imagery that repre
 ### Example
 
 ```php
+use Thumbsnag\FastImageAnalyzer;
 use Thumbsnag\Thumbsnag;
-use DOMDocument;
+use Thumbsnag\UrlDocument;
 
-$html = file_get_contents('http://simplegifts.co');
-$document = DOMDocument::loadHTML($html);
-$thumbsnag = Thumbsnag::load($document);
+$url = 'http://simplegifts.co';
+$html = file_get_contents($url);
+
+$document = new DOMDocument()
+$document->loadHTML($html);
+
+$analyzer = new FastImageAnalyzer(new FastImage());
+
+$thumbsnag = Thumbsnag::load(new UrlDocument($doc, $url), $analyzer);
 $images = $thumbsnag->process();
 ```
 
-After inspection, `$images` might return:
+After inspection, `$images` will return something like:
 
 ```bash
 array(2) {
   [0]=>
-  string(31) "http://simplegifts./image1.jpg"
+  string(31) "http://simplegifts.co/image1.jpg"
   [1]=>
-  string(31) "http://simplegifts./image1.jpg"
+  string(31) "http://simplegifts.co/image1.jpg"
 }
 ```
 
