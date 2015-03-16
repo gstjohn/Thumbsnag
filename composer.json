@@ -26,5 +26,6 @@
         "psr-4": {
             "Thumbsnag\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
