@@ -98,7 +98,7 @@ class Thumbsnag
         $this->completeImages();
         $this->filterImages();
 
-        return $this->images;
+        return array_values($this->images);
     }
 
     /**
