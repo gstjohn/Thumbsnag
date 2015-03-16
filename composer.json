@@ -10,22 +10,15 @@
         }
     ],
     "require": {
-        "fastimage/fastimage": "dev-master#c9b452aa315a65d1129bb9a820e18ee7130af066",
-        "webignition/absolute-url-deriver": "~1.5"
+        "webignition/absolute-url-deriver": "~1.5",
+        "gstjohn/fastimage": "~1.0"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0@dev"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/pinleague/fastimage.git"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Thumbsnag\\": "src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
