@@ -24,11 +24,6 @@ class Thumbsnag
     private $config;
 
     /**
-     * @var string
-     */
-    private $documentUrl;
-
-    /**
      * @var ImageSizeAnalyzer
      */
     private $analyzer;
@@ -36,13 +31,11 @@ class Thumbsnag
     /**
      * Constructor
      *
-     * @param UrlDocument       $document
      * @param ImageSizeAnalyzer $analyzer
      * @param array             $config
      */
-    private function __construct(UrlDocument $document, ImageSizeAnalyzer $analyzer, array $config)
+    public function __construct(ImageSizeAnalyzer $analyzer, array $config = [])
     {
-        $this->document = $document;
         $this->analyzer = $analyzer;
 
         $defaultConfig = [
@@ -64,16 +57,34 @@ class Thumbsnag
      */
     public static function load(UrlDocument $document, ImageSizeAnalyzer $analyzer, array $config = [])
     {
-        return new Thumbsnag($document, $analyzer, $config);
+        $thumbsnag = new Thumbsnag($analyzer, $config);
+        $thumbsnag->setDocument($document);
+
+        return $thumbsnag;
+    }
+
+    /**
+     * Set document
+     *
+     * @param UrlDocument $document
+     */
+    public function setDocument(UrlDocument $document)
+    {
+        $this->document = $document;
     }
 
     /**
      * Get all representative images
      *
      * @return array
+     * @throws \Exception
      */
     public function process()
     {
+        if (is_null($this->document)) {
+            throw new \Exception('A document must be set on the object before processing.');
+        }
+
         $document = $this->document->getDocument();
 
         $openGraph = new OpenGraph($document);
@@ -93,7 +104,7 @@ class Thumbsnag
     /**
      * Make URLs absolute
      */
-    public function makeUrlsAbsolute()
+    private function makeUrlsAbsolute()
     {
         foreach ($this->images as $key => &$image) {
             // Make sure we have an absolute URL
@@ -105,7 +116,7 @@ class Thumbsnag
     /**
      * Remove duplicate URLs
      */
-    public function removeDuplicates()
+    private function removeDuplicates()
     {
         $images = [];
 
