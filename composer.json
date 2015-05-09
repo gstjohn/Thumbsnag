@@ -7,6 +7,10 @@
         {
             "name": "Garrett St. John",
             "email": "gstjohn@gmail.com"
+        },
+        {
+          "name": "Will Washburn",
+          "email": "will.washburn@gmail.com"
         }
     ],
     "require": {
