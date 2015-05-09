@@ -14,7 +14,7 @@ class Thumbsnag
     private $document;
 
     /**
-     * @var array
+     * @var Image[]
      */
     private $images = [];
 
@@ -132,19 +132,31 @@ class Thumbsnag
      */
     private function completeImages()
     {
+        $image_sizes = $this->analyzer->batch(array_map(function(Image $image){
+            if ($image->hasDimensions()) {
+                return false;
+            }
+            return $image->getUrl();
+        },$this->images));
+
         foreach ($this->images as $key => &$image) {
             // Get dimensions if we don't have them
             if (!$image->hasDimensions()) {
-                try {
-                    $this->analyzer->load($image->getUrl());
 
-                    list($width, $height) = $this->analyzer->getSize();
-
-                    $image->setDimensions($width, $height);
-                } catch (\Exception $e) {
-                    // Remove image if there was an issue analyzing it
+                // If there images sizes array doesnt return the url remove it
+                if (!array_key_exists($image->getUrl(),$image_sizes)){
                     unset($this->images[$key]);
                 }
+
+                $size  = $image_sizes[$image->getUrl()]['size'];
+
+                // Remove image if there was an issue analyzing it
+                if($size === 'failed') {
+                    unset($this->images[$key]);
+                    continue;
+                }
+
+                $image->setDimensions(current($size),next($size));
             }
         }
     }
@@ -154,7 +166,7 @@ class Thumbsnag
      */
     private function filterImages()
     {
-        $this->images = array_filter($this->images, function ($image) {
+        $this->images = array_filter($this->images, function (Image $image) {
             list($width, $height) = $image->getDimensions();
 
             // check minimum size
