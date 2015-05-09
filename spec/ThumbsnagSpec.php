@@ -64,28 +64,36 @@ class ThumbsnagSpec extends ObjectBehavior
 
 class StubFileSizeAnalyzer implements ImageSizeAnalyzer
 {
-
-    private $filePath;
-
-    /**
-     * Load URL
-     *
-     * @param $url
-     */
-    public function load($url)
-    {
-        $this->filePath = __DIR__ . '/../stub/img/' . basename($url);
-    }
-
     /**
      * Get image size
      *
      * @return array
      */
-    public function getSize()
+    private function getSize($url)
     {
-        $imageSize = getimagesize($this->filePath);
+        $imageSize = @getimagesize(__DIR__ . '/../stub/img/' . basename($url));
 
-        return [$imageSize[0], $imageSize[1]];
+        if (!empty($imageSize)) {
+            return [current($imageSize), next($imageSize)];
+        }
+
+        return 'failed';
+    }
+
+    /**
+     * Get the sizes of a given array of image urls
+     *
+     * @param array $urls
+     *
+     * @return mixed
+     */
+    public function batch(array $urls)
+    {
+        $sizes = [];
+        foreach ($urls as $url) {
+            $sizes[$url]['size'] = $this->getSize($url);
+        }
+
+        return $sizes;
     }
 }
