@@ -13,7 +13,7 @@ $html = file_get_contents($url);
 $doc = new DOMDocument();
 $doc->loadHTML($html);
 
-$analyzer = new FastImageAnalyzer(new FastImage());
+$analyzer = new \Thumbsnag\FasterImageAnalyzer(new \FasterImage\FasterImage());
 
 $thumbsnag = Thumbsnag::load(new UrlDocument($doc, $url), $analyzer);
 $images = $thumbsnag->process();

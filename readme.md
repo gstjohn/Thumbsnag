@@ -5,7 +5,7 @@ Thumbsnag crawls an HTML document and finds imagery that best represents the giv
 ## Example
 
 ```php
-use Thumbsnag\FastImageAnalyzer;
+use Thumbsnag\FasterImageAnalyzer;
 use Thumbsnag\Thumbsnag;
 use Thumbsnag\UrlDocument;
 
@@ -15,7 +15,7 @@ $html = file_get_contents($url);
 $document = new DOMDocument();
 $document->loadHTML($html);
 
-$analyzer = new FastImageAnalyzer(new FastImage());
+$analyzer = new FasterImageAnalyzer(new \FasterImage\FasterImage());
 
 $thumbsnag = Thumbsnag::load(new UrlDocument($doc, $url), $analyzer);
 $images = $thumbsnag->process();
