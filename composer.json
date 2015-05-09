@@ -12,6 +12,7 @@
     "require": {
         "webignition/absolute-url-deriver": "~1.5",
         "gstjohn/fastimage": "~1.0"
+        "fasterimage/fasterimage": "0.0.4"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0@dev"
