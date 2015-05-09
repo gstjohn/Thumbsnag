@@ -1,20 +1,13 @@
-<?php
-
-namespace Thumbsnag;
+<?php namespace Thumbsnag;
 
 interface ImageSizeAnalyzer {
 
     /**
-     * Load URL
+     * Get the sizes of a given array of image urls
      *
-     * @param $url
-     */
-    public function load($url);
-
-    /**
-     * Get image size
+     * @param array $urls
      *
-     * @return array
+     * @return mixed
      */
-    public function getSize();
+    public function batch(array $urls);
 }
