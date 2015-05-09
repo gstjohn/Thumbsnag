@@ -18,14 +18,21 @@ class FastImageAnalyzer implements ImageSizeAnalyzer
     }
 
     /**
-     * Load URL
+     * Get the sizes of a given array of image urls
      *
-     * @param $url
+     * @param array $urls
+     *
+     * @return mixed
      */
-    public function load($url)
+    public function batch(array $urls)
     {
-        $this->analyzer = new $this->fastImage;
-        $this->analyzer->load($url);
+        $results = [];
+        foreach ($urls as $url) {
+            $this->load($url);
+            $results[$url]['size'] = $this->getSize();
+        }
+
+        return $results;
     }
 
     /**
@@ -34,7 +41,7 @@ class FastImageAnalyzer implements ImageSizeAnalyzer
      * @return array
      * @throws \Exception
      */
-    public function getSize()
+    protected function getSize()
     {
         $result = $this->analyzer->getSize();
 
@@ -44,5 +51,16 @@ class FastImageAnalyzer implements ImageSizeAnalyzer
         }
 
         return $result;
+    }
+
+    /**
+     * Load URL
+     *
+     * @param $url
+     */
+    protected function load($url)
+    {
+        $this->analyzer = new $this->fastImage;
+        $this->analyzer->load($url);
     }
 }
